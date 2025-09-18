@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"content="width=device-width,initial-scale=1.0">
+<title>Styled Page</title>
+<link id="pagestyle"rel="stylesheet"href="style1.css">
+</head>
+<body>
+<div id="container">
+<h1>Welcome to My Homepage</h1>
+<hr>
+<h3>Use the menu to select different Stylesheets</h3>
+<p>This is a sample paragraph that demonstrates how the first line is styled differently.</p>
+<p class="highlight">This paragraph is highlighted with a background color and a dashed border.</p>
+highlight">This paragrraph to show the effect of the general sibling selector. It gets a different gets a different font style.</p>
+<p>This is another paragraph to show the effect of general sibling selector. It gets a different gets a different font style.</p> <span>This span element is styled with the child selector.</span>
+<p>The following image and time elements are grouped and have block display.</p>
+<time datetime="2024-08-29">August 29, 2024</time>
+<p>Visit <a href="https://www.example.com" target="blank">this link</a> to how the attribute selector works with hover effects.</p>
+</div>
+</div style="margin-top:20px;">
+<button onclick="swapStyle('Style1.css')">Style 1</button>
+<button onclick="swapStyle('Style2.css')">Style 2</button>
+<button onclick="swapStyle('Style3.css')">Style 3</button>
+<button onclick="swapStyle('Style4.css')">Style 4</button>
+<button onclick="swapStyle('')">No style</button>
+</div>
+
+<script>
+function swapStyle(sheet){
+document.getElementById('pagestyle').setAttribute('href',sheet);
+}
+
+</script>
+</body>
+</html>
+
