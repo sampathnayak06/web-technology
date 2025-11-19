@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple AJAX Examples</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+<h2>A. AJAX Without jQuery</h2>
+<button onclick="loadTextVanilla()">Load Text</button>
+<p id="vanillaOutput"></p>
+
+<h2>B. AJAX With jQuery</h2>
+<button id="loadWithJQ">Load Text (jQuery)</button>
+<p id="jqOutput"></p>
+
+<h2>C. getJSON() Example</h2>
+<button id="loadJSON">Load JSON</button>
+<p id="jsonOutput"></p>
+
+<h2>D. parseJSON() Example</h2>
+<button id="parseBtn">Parse JSON</button>
+<p id="parseOutput"></p>
+
+
+<script>
+// A. AJAX without jQuery
+function loadTextVanilla() {
+    let x = new XMLHttpRequest();
+    x.open("GET", "textfile.txt");
+    x.onload = function () {
+        document.getElementById("vanillaOutput").innerHTML = x.responseText;
+    };
+    x.send();
+}
+
+// B. AJAX with jQuery
+$("#loadWithJQ").click(function () {
+    $.ajax({
+        url: "textfile.txt",
+        success: function (data) {
+            $("#jqOutput").html(data);
+        }
+    });
+});
+
+// C. getJSON() example
+$("#loadJSON").click(function () {
+    $.getJSON("data.json", function (obj) {
+        $("#jsonOutput").html("Name: " + obj.name + ", Age: " + obj.age);
+    });
+});
+
+// D. parseJSON() example
+$("#parseBtn").click(function () {
+    let str = '{"city":"Udupi","state":"Karnataka"}';
+    let obj = $.parseJSON(str);
+    $("#parseOutput").html("City: " + obj.city + ", State: " + obj.state);
+});
+</script>
+
+</body>
+</html>
+
+textfile.txt
+data.json
