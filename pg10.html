@@ -1,81 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>AJAX and JSON Examples</title>
-  <style>
-    body { font-family: Arial, 
-      sans-serif;
-       margin: 20px; }
-    button { margin: 5px 0;
-       padding: 8px 12px; }
-    .content, .jsonContent { margin-top: 10px;
-       padding: 10px;
-        border: 1px solid #ddd; }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Simple AJAX Examples</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 30px;
+        }
+
+        button {
+            background: #007BFF;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        p {
+            background: white;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            min-height: 25px;
+            margin-top: 10px;
+            width: 95%;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 700px;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
+
 <body>
+<div class="container">
 
-  <h2>Ajax without jQuery</h2>
-  <button onclick="loadContent()">Load Text Content (No jQuery)</button>
-  <div id="content" class="content">Content from the file will load here.</div>
+<h2>A. AJAX Without jQuery</h2>
+<button onclick="loadTextVanilla()">Load Text</button>
+<p id="vanillaOutput"></p>
 
-  <h2>Ajax with jQuery</h2>
-  <button id="loadBtn">Load Text Content (jQuery)</button>
-  <div id="jqueryContent" class="content">Content from the file will load here.</div>
+<h2>B. AJAX With jQuery</h2>
+<button id="loadWithJQ">Load Text (jQuery)</button>
+<p id="jqOutput"></p>
 
-  <h2>getJSON() Method</h2>
-  <button id="loadJsonBtn">Load JSON Data (jQuery)</button>
-  <div id="jsonContent" class="jsonContent">JSON data will load here.</div>
+<h2>C. getJSON() Example</h2>
+<button id="loadJSON">Load JSON</button>
+<p id="jsonOutput"></p>
 
-  <h2>parseJSON() Method</h2>
-  <button id="parseJsonBtn">Parse JSON</button>
-  <div id="parseContent" class="jsonContent">Parsed JSON data will appear here.</div>
+<h2>D. parseJSON() Example</h2>
+<button id="parseBtn">Parse JSON</button>
+<p id="parseOutput"></p>
 
-  <script>
-    function loadContent() {
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", "sample.txt", true);
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          document.getElementById("content").innerText = xhr.responseText;
+</div>
+
+<script>
+// A. AJAX without jQuery
+function loadTextVanilla() {
+    let x = new XMLHttpRequest();
+    x.open("GET", "textfile.txt");
+    x.onload = function () {
+        document.getElementById("vanillaOutput").innerHTML = x.responseText;
+    };
+    x.send();
+}
+
+// B. AJAX with jQuery
+$("#loadWithJQ").click(function () {
+    $.ajax({
+        url: "textfile.txt",
+        success: function (data) {
+            $("#jqOutput").html(data);
         }
-      };
-      xhr.send();
-    }
-    $('#loadBtn').click(function() {
-      $.ajax({
-        url: 'sample.txt',
-        method: 'GET',
-        success: function(data) {
-          $('#jqueryContent').text(data);
-        }
-      });
     });
+});
 
-    $('#loadJsonBtn').click(function() {
-      $.getJSON('data.json', function(data) {
-        $('#jsonContent').html(
-          `<p>Name: ${data.name}</p>
-           <p>Age: ${data.age}</p>
-           <p>Country: ${data.country}</p>`
-        );
-      });
+// C. getJSON() example
+$("#loadJSON").click(function () {
+    $.getJSON("data.json", function (obj) {
+        $("#jsonOutput").html("Name: " + obj.name + ", Age: " + obj.age);
     });
+});
 
-    $('#parseJsonBtn').click(function() {
-      const jsonString = '{"name": "Alice", "age": 25, "country": "USA"}';
-      const jsonObject = $.parseJSON(jsonString);
-      $('#parseContent').html(
-        `<p>Name: ${jsonObject.name}</p>
-         <p>Age: ${jsonObject.age}</p>
-         <p>Country: ${jsonObject.country}</p>`
-      );
-    });
-  </script>
-  
+// D. parseJSON() example
+$("#parseBtn").click(function () {
+    let str = '{"city":"Udupi","state":"Karnataka"}';
+    let obj = $.parseJSON(str);
+    $("#parseOutput").html("City: " + obj.city + ", State: " + obj.state);
+});
+</script>
+
 </body>
 </html>
-
-
